@@ -2,15 +2,16 @@ package main
 
 import (
 	"flag"
-	"github.com/google/blueprint"
-	"github.com/roman-mazur/bood"
-	"github.com/roman-mazur/bood/gomodule"
-	// TODO: Підставте свій власний пакет.
-	// "github.com/roman-mazur/design-practice-2-template/build/gomodule"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
+
+	"github.com/google/blueprint"
+	"github.com/roman-mazur/bood"
+	"github.com/roman-mazur/bood/gomodule"
+	// TODO: Підставте свій власний пакет.
+	// "github.com/roman-mazur/design-practice-1-template/build/gomodule"
 )
 
 var (
