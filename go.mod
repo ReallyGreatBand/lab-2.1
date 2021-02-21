@@ -1,6 +1,6 @@
 module github.com/roman-mazur/design-practice-2-template
 
-go 1.14
+go 1.15
 
 require (
 	github.com/google/blueprint v0.0.0-20200305182927-215230a3e856
