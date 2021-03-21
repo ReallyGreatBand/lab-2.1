@@ -1,0 +1,17 @@
+tested_binary {
+  // Module (and output) name.
+  name: "five",
+
+  // Go package to build.
+  pkg: "github.com/ReallyGreatBand/lab-2.1/example",
+  testPkg: "./...",
+  testSrcs: ["**/*_test.go"],
+
+  // Build inputs.
+  srcs: ["**/*.go", "../go.mod"],
+  srcsExclude: ["**/*_test.go"]
+}
+archive_bin {
+  name: "archiver",
+  toArchive: "five"
+}

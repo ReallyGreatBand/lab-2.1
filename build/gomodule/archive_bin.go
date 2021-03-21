@@ -9,8 +9,8 @@ import (
 
 var (
 	archiveBin = pctx.StaticRule("archiveBin", blueprint.RuleParams{
-		Command:     "cd $workDir && zip $outputPath $toArchive",
-		Description: "Archive bood binary",
+		Command:     "cd $workDir && zip $outputPath -j $toArchive",
+		Description: "Archive $toArchive binary",
 	}, "workDir", "toArchive", "outputPath")
 )
 
@@ -33,10 +33,11 @@ func (am *archiveModuleType)GenerateBuildActions(ctx blueprint.ModuleContext) {
 		Description: fmt.Sprintf("go binary archivation by module %s", name),
 		Rule:        archiveBin,
 		Outputs:     []string{outputPath},
+		Inputs:      []string{path.Join(ctx.ModuleDir(), "out", "bin", am.properties.ToArchive)},
 		Args: map[string]string{
 			"outputPath": outputPath,
 			"workDir":    ctx.ModuleDir(),
-			"toArchive":  path.Join(ctx.ModuleDir(), "out", "bin","bood"),
+			"toArchive":  path.Join("out", "bin", am.properties.ToArchive),
 		},
 	})
 }
