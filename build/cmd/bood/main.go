@@ -20,7 +20,6 @@ var (
 
 func NewContext() *blueprint.Context {
 	ctx := bood.PrepareContext()
-	// TODO: Замініть імплементацію go_binary на власну.
 	ctx.RegisterModuleType("tested_binary", gomodule.SimpleBinFactory)
 	ctx.RegisterModuleType("archive_bin", gomodule.SimpleArchiveFactory)
 	return ctx
