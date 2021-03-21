@@ -12,3 +12,12 @@ script:
   - bood
   - cd ../example
   - bood
+deploy:
+  provider: releases
+  api_key:
+    secure: d9fdc2480d4594246e046053bb393989c18845c2
+  file: usr/local/bin/bood
+  skip_cleanup: true
+  on:
+    tags: true
+
