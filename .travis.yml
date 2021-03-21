@@ -1,23 +1,24 @@
 language: go
 go:
-  - "1.15"
+- '1.15'
 before_install:
-  - wget https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
-  - sudo unzip ninja-linux.zip
-  - sudo mv ninja /usr/local/bin
+- wget https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
+- sudo unzip ninja-linux.zip
+- sudo mv ninja /usr/local/bin
 script:
-  - go build ./build/cmd/bood
-  - sudo mv ./bood /usr/local/bin
-  - cd ./build
-  - bood
-  - cd ../example
-  - bood
+- go build ./build/cmd/bood
+- sudo mv ./bood /usr/local/bin
+- cd ./build
+- bood
+- cd ../example
+- bood
 deploy:
   provider: releases
-  api_key:
-    secure: d9fdc2480d4594246e046053bb393989c18845c2
+  api_key: $GH_AUTH
   file: usr/local/bin/bood
   skip_cleanup: true
   on:
     tags: true
-
+env:
+  global:
+    secure: suHULYWLEXtc7Fxk/6Q2uyRA41AsqWwrRTQ9+hM5j4iEmKRyDKHuzNIvYTCquvgh9WivhL9Wzo0uJ3MLHdi/HMWIEmekl5JY09rsc0RLkMVwKlGuCY6jRiE/AcpCvBV7sS0QksQ2Nv6+ToPXxyV4waz7cMudXF3CQxfjKYTpyTzb32i36ZupDW76kR0/yF0qie/OOHtCsFCVvNCxFVTBtqQ4W6VhZdEA12q3xABIOTIkeWaN6JH9hgwp+LLdF/mVH+/g2UmJDMj+eezDW0FoulaLPikW/FczlUJ+8omti6+p75fQ6Ck/WC3Cnx1OpxBge76Qj519y/SUKsVocn7d5ubETHLA3XT25Nuo2tAu+BMsWQtzMyUVfPBozFYAMAbfsZboVoGRPrxxAQqm0Io3pdsYA1gEdCNk7CmKORHlDADFB5wPTtmPVDWn4/bdarnpZpBo+m9m/U1ChP/8/YBLhdy26o34o5tKTtAfMOAV1Jx6l7BhinQBWmuemV5UeB9DQID2EM3y8P1iHyn6krMvwC0L0Cr5OumLQzbi+rPjyyXr9XnmQRXrJ2PzK2k9jHLXhvBHsx8b8OyMK7jDgE9pyFcfW+10sv2ywMtuXdNllEl0LmK9OC3FM47ozsa1TQp80v+dH8gcNgz+Q88bMfSAEoCP8pK8kqbGdWKuPtWwFQE=
