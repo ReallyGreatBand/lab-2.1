@@ -15,6 +15,7 @@ script:
 deploy:
   provider: releases
   api_key: "$GH_AUTH"
+  skip_cleanup: true
   file: usr/local/bin/bood
   on:
     tags: true
