@@ -62,7 +62,7 @@ func (gb *goBinaryModuleType) GenerateBuildActions(ctx blueprint.ModuleContext) 
 	config.Debug.Printf("Adding build actions for go binary module '%s'", name)
 
 	outputPath := path.Join(config.BaseOutputDir, "bin", name)
-	output := path.Join(config.BaseOutputDir, "bood_test")
+	output := path.Join(config.BaseOutputDir, name, "bood_test")
 
 	var inputs []string
 	var testInputs []string
