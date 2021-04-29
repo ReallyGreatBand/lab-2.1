@@ -8,6 +8,7 @@ tested_binary {
   testSrcs: ["**/*_test.go"],
 
   // Build inputs.
+  defaultBuild: true,
   srcs: ["**/*.go", "../go.mod"],
   srcsExclude: ["**/*_test.go"]
 }
