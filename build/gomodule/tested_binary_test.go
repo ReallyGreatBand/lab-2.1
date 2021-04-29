@@ -18,7 +18,6 @@ func TestSimpleBinFactory(t *testing.T) {
 			  srcs: ["test-src.go"],
               testPkg: "./...",
               testSrcs: ["**/*_test.go"],
-              defaultBuild: true,
 			  pkg: ".",
 	          vendorFirst: true
 			}

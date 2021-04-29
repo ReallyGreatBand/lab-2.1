@@ -19,7 +19,6 @@ func TestSimpleArchiveFactory(t *testing.T) {
               testPkg: "./...",
               testSrcs: ["**/*_test.go"],
 			  pkg: ".",
-              defaultBuild: true,
 	          vendorFirst: true
 			}
 			archive_bin {
