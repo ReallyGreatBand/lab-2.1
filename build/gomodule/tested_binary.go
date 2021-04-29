@@ -47,6 +47,7 @@ type goBinaryModuleType struct {
 		// If to call vendor command.
 		VendorFirst bool
 
+		DefaultBuild bool
 		// Example of how to specify dependencies.
 		Deps []string
 	}
@@ -66,13 +67,13 @@ func (gb *goBinaryModuleType) GenerateBuildActions(ctx blueprint.ModuleContext) 
 
 	var inputs []string
 	var testInputs []string
-	inputErors := false
+	inputErrors := false
 	for _, src := range gb.properties.Srcs {
 		if matches, err := ctx.GlobWithDeps(src, gb.properties.SrcsExclude); err == nil {
 			inputs = append(inputs, matches...)
 		} else {
 			ctx.PropertyErrorf("srcs", "Cannot resolve files that match pattern %s", src)
-			inputErors = true
+			inputErrors = true
 		}
 	}
 	for _, src := range gb.properties.TestSrcs {
@@ -80,10 +81,10 @@ func (gb *goBinaryModuleType) GenerateBuildActions(ctx blueprint.ModuleContext) 
 			testInputs = append(testInputs, matches...)
 		} else {
 			ctx.PropertyErrorf("srcs", "Cannot resolve files that match pattern %s", src)
-			inputErors = true
+			inputErrors = true
 		}
 	}
-	if inputErors {
+	if inputErrors {
 		return
 	}
 
@@ -103,17 +104,22 @@ func (gb *goBinaryModuleType) GenerateBuildActions(ctx blueprint.ModuleContext) 
 		inputs = append(inputs, vendorDirPath)
 	}
 
-	ctx.Build(pctx, blueprint.BuildParams{
-		Description: fmt.Sprintf("Build %s as Go binary", name),
-		Rule:        goBuild,
-		Outputs:     []string{outputPath},
-		Implicits:   inputs,
-		Args: map[string]string{
-			"outputPath": outputPath,
-			"workDir":    ctx.ModuleDir(),
-			"pkg":        gb.properties.Pkg,
-		},
-	})
+	build := gb.properties.DefaultBuild
+
+	if build {
+		ctx.Build(pctx, blueprint.BuildParams{
+			Description: fmt.Sprintf("Build %s as Go binary", name),
+			Rule:        goBuild,
+			Outputs:     []string{outputPath},
+			Implicits:   inputs,
+			Optional:    true,
+			Args: map[string]string{
+				"outputPath": outputPath,
+				"workDir":    ctx.ModuleDir(),
+				"pkg":        gb.properties.Pkg,
+			},
+		})
+	}
 
 	testInputs = append(testInputs, inputs...)
 	ctx.Build(pctx, blueprint.BuildParams{
